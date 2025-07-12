@@ -1,9 +1,9 @@
 import { useLoaderData } from "react-router-dom";
 
-
 const Update = () => {
-    const updata = useLoaderData()
-    console.log(updata);
+    const loderData= useLoaderData();
+    // console.log(loderData);
+    
 
     const handleUpdate = (e) => {
         e.preventDefault();
@@ -13,31 +13,32 @@ const Update = () => {
         const updatedUser = { name, email };
         console.log(updatedUser);
 
-        fetch(`http://localhost:5000/users/${updata._id}`,{
+        fetch(`http://localhost:5000/users/${loderData._id}`,{
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
             body: JSON.stringify(updatedUser)
         })
-        .then(response => response.json())
-        .then(data => { 
+        .then(res => res.json())
+        .then(data => {
             console.log(data);
             if (data.modifiedCount > 0) {
                 alert('User updated successfully');
-                form.reset();
             }
-        })
+        });
+
+      
     }
 
     return (
         
-        <div>
-            <h2>name: {updata.name}</h2>
+        <div className="border-cyan-300 border-2 rounded-2xl  **:mt-3 p-2 ">
+            <h2>name:{loderData.name} </h2>
             <form onSubmit={handleUpdate}>
-                <input type="text" defaultValue={updata.name} name="name" /><br />
-                <input type="text" defaultValue={updata.email} name="email"/><br />
-                <button type="submit">Update</button>
+                <input className="bg-white border-2" type="text" defaultValue={loderData.name}  name="name" /><br />
+                <input className="bg-white border-2" type="text" defaultValue={loderData.email}  name="email"/><br />
+                <button className="btn btn-primary" type="submit">Update</button>
             </form>
         </div>
     );
